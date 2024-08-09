@@ -20,6 +20,20 @@ export const DBetTableResult = () => {
 		return <Typography variant={'body2'}>No results yet</Typography>
 	}
 
+	const getRowColor = (guess: string, result: number) => {
+		const [condition, valueStr] = guess.split(' ')
+		const value = parseInt(valueStr)
+
+		if (
+			(condition === 'Over' && result > value) ||
+			(condition === 'Under' && result < value)
+		) {
+			return 'success.main'
+		} else {
+			return 'error.main'
+		}
+	}
+
 	return (
 		<TableContainer>
 			<Table sx={{ minWidth: 600 }} size='small' aria-label='a dense table'>
@@ -35,13 +49,15 @@ export const DBetTableResult = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{betHistory.map((row, index) => (
-						<TableRow key={index}>
+					{betHistory.map(row => (
+						<TableRow key={row.time}>
 							<TableCell component='th' scope='row'>
 								{row.time}
 							</TableCell>
 							<TableCell>{row.guess}</TableCell>
-							<TableCell>{row.result}</TableCell>
+							<TableCell sx={{ color: getRowColor(row.guess, row.result) }}>
+								{row.result}
+							</TableCell>
 						</TableRow>
 					))}
 				</TableBody>
