@@ -36,7 +36,7 @@ export const DBetTableResult = () => {
 
 	return (
 		<TableContainer>
-			<Table sx={{ minWidth: 600 }} size='small' aria-label='a dense table'>
+			<Table sx={{ width: 600 }} size='small' aria-label='table result'>
 				<TableHead
 					sx={{
 						height: 56
@@ -49,8 +49,8 @@ export const DBetTableResult = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{betHistory.map(row => (
-						<TableRow key={row.time}>
+					{betHistory.map((row, index) => (
+						<TableRow key={`${row.time}-${index}`}>
 							<TableCell component='th' scope='row'>
 								{row.time}
 							</TableCell>
